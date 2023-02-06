@@ -1,12 +1,12 @@
 ## Assignment 1: Test Driven Development
-Within `fizzbuzz.py` you will find function `FizzBuzz`. This can be tested by calling:
+Within `fizzbuzz.py` you will find function `FizzBuzz`. On the command line, this can be tested by calling:
 
 ```
 python fizzbuzz.py <input>
 ```
 If you are working on a windows machine. The output will be "Fizz" if the number is divisible by 3, "Buzz" if the number is divisible by 5, or "FizzBuzz" if the number is divisible by both.
 
-Within `password_validator.py` you will find function `pass_val`. This can similarily be tested by calling:
+Within `password_validator.py` you will find function `pass_val`. On the command line, this can similarily be tested by calling:
 
 ```
 python password_validator.py <input>
