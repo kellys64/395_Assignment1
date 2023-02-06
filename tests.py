@@ -5,6 +5,7 @@ Purpose: Test functions in Assingment 1.
 """
 
 from fizzbuzz import fizzBuzz
+from password_validator import pass_val
 import unittest
 
 class TestFizzBuzz(unittest.TestCase):
@@ -44,6 +45,7 @@ class TestFizzBuzz(unittest.TestCase):
         self.assertEqual(fizzBuzz(65), "Buzz")
 
     def test_GivenInputIsDivisble_by3And5_thenFizzBuzzIsReturned(self):
+
         self.assertEqual(fizzBuzz(15), "FizzBuzz")
         self.assertEqual(fizzBuzz(30), "FizzBuzz")
         self.assertEqual(fizzBuzz(45), "FizzBuzz")
@@ -51,6 +53,30 @@ class TestFizzBuzz(unittest.TestCase):
         self.assertEqual(fizzBuzz(75), "FizzBuzz")
         self.assertEqual(fizzBuzz(90), "FizzBuzz")
         self.assertEqual(fizzBuzz(105), "FizzBuzz")
+
+
+class TestPasswordValidator(unittest.TestCase):
+
+    def test_GivenInputIsntLen8_thenReportError(self):
+
+        # Store error messages to make writing tests easier
+        lenErr = "Password must be at least 8 characters"
+        numErr = "Password must contain at least 2 numbers"
+        CapErr = "Password must contain at least one captial letter."
+        SChErr = "Password must contain at least one special character."
+        pass_message = "Password passes!"
+
+        self.assertEqual(pass_val("hello"), f"{lenErr}\n{numErr}\n{CapErr}\n{SChErr}")
+        self.assertEqual(pass_val("he11o"), f"{lenErr}\n{CapErr}\n{SChErr}")
+        self.assertEqual(pass_val("He11o"), f"{lenErr}\n{SChErr}")
+        self.assertEqual(pass_val("#He11o"), f"{lenErr}")
+        self.assertEqual(pass_val("#He11o_World!"), pass_message)
+
+        # Few random tests checking if errors are always
+        # reported in the correct order
+        self.assertEqual(pass_val("super_man!_#"), f"{numErr}\n{CapErr}")
+        self.assertEqual(pass_val("SuperMan123"), f"{CapErr}\n{SChErr}")
+        self.assertEqual(pass_val("BatMan_Rocks!"), f"{numErr}\n{SChErr}")
 
 
 if __name__ == "__main__":
