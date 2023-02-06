@@ -57,26 +57,53 @@ class TestFizzBuzz(unittest.TestCase):
 
 class TestPasswordValidator(unittest.TestCase):
 
+    def setUp(self):
+        self.lenErr = "Password must be at least 8 characters"
+        self.numErr = "Password must contain at least 2 numbers"
+        self.capErr = "Password must contain at least one capital"
+        self.sChErr = "Password must contain at least one special char"
+        self.pass_message = "Password passes!"
+
     def test_GivenInputIsntLen8_thenReportError(self):
 
-        # Store error messages to make writing tests easier
-        lenErr = "Password must be at least 8 characters"
-        numErr = "Password must contain at least 2 numbers"
-        CapErr = "Password must contain at least one captial letter."
-        SChErr = "Password must contain at least one special character."
-        pass_message = "Password passes!"
+        # Tests should only report the len error
 
-        self.assertEqual(pass_val("hello"), f"{lenErr}\n{numErr}\n{CapErr}\n{SChErr}")
-        self.assertEqual(pass_val("he11o"), f"{lenErr}\n{CapErr}\n{SChErr}")
-        self.assertEqual(pass_val("He11o"), f"{lenErr}\n{SChErr}")
-        self.assertEqual(pass_val("#He11o"), f"{lenErr}")
-        self.assertEqual(pass_val("#He11o_World!"), pass_message)
+        self.assertEqual(pass_val("#He11o"), f"{self.lenErr}")
 
-        # Few random tests checking if errors are always
-        # reported in the correct order
-        self.assertEqual(pass_val("super_man!_#"), f"{numErr}\n{CapErr}")
-        self.assertEqual(pass_val("SuperMan123"), f"{CapErr}\n{SChErr}")
-        self.assertEqual(pass_val("BatMan_Rocks!"), f"{numErr}\n{SChErr}")
+        # Test for 7 characters
+        self.assertEqual(pass_val("#He11o!"), f"{self.lenErr}")
+
+    def test_GivenInputHasNoNum_thenReportError(self):
+
+        # Tests shoulld only report the num error
+
+        self.assertEqual(pass_val("#Hello!_"), f"{self.numErr}")
+
+        # Test for one number only
+        self.assertEqual(pass_val("#He1lo!_"), f"{self.numErr}")
+
+    def test_GivenInputHasNoCap_thenReportError(self):
+
+        # Tests should only report cap error
+
+        self.assertEqual(pass_val("#numb3r5"), f"{self.capErr}")
+
+    def test_GivenInputHasNoSpecialChar_thenReportError(self):
+
+        # Test should only report special character error
+
+        self.assertEqual(pass_val("Numb3r5s"), f"{self.sChErr}")
+
+    def test_GivenErrorIsReported_thenErrorsInCorrectOrder(self):
+
+        # Assortment of tests to make sure errors are all reported
+        # correctly and in the right order
+
+        self.assertEqual(pass_val("hello"), f"{self.lenErr}\n{self.numErr}\n{self.capErr}\n{self.sChErr}")
+
+        self.assertEqual(pass_val("He11o"), f"{self.lenErr}\n{self.sChErr}")
+        self.assertEqual(pass_val("#Hello"), f"{self.lenErr}\n{self.numErr}")
+        self.assertEqual(pass_val("he11oworld"), f"{self.capErr}\n{self.sChErr}")
 
 
 if __name__ == "__main__":

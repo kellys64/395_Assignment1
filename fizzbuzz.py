@@ -7,6 +7,14 @@ it as "Fizz" if it's a multiple of 3, "Buzz" if it's a multiple of
 """
 import sys
 
+"""
+Purpose: Reports "Fizz" if multiple of 3, "Buzz" if multiple of 5, and
+         "FizzBuzz" if multiple of both.
+Parameters:
+         num - number being checked against
+Returns:
+         string representing "Fizz", "Buzz", or "FizzBuzz"
+"""
 def fizzBuzz(num):
     # Initialize to None so that string will always be returned
     string = None
